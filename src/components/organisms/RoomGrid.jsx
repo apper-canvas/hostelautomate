@@ -2,14 +2,13 @@ import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { toast } from 'react-toastify';
 import RoomCard from '@/components/molecules/RoomCard';
-import Loading from '@/components/ui/Loading';
-import Error from '@/components/ui/Error';
-import Empty from '@/components/ui/Empty';
-import { Button } from '@/components/atoms/Button';
-import ApperIcon from '@/components/ApperIcon';
-import roomService from '@/services/api/roomService';
-import residentService from '@/services/api/residentService';
-
+import Loading from '@/components/ui/Loading'
+import Error from '@/components/ui/Error'
+import Empty from '@/components/ui/Empty'
+import Button from '@/components/atoms/Button'
+import ApperIcon from '@/components/ApperIcon'
+import roomService from '@/services/api/roomService'
+import residentService from '@/services/api/residentService'
 const RoomGrid = ({ 
   rooms, 
   loading, 
