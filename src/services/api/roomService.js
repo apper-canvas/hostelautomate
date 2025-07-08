@@ -49,8 +49,48 @@ class RoomService {
     if (index === -1) {
       throw new Error(`Room with ID ${id} not found`);
     }
-    this.rooms.splice(index, 1);
+this.rooms.splice(index, 1);
     return true;
+  }
+
+  async assignResidentsBulk(roomIds, residentId) {
+    await delay(500);
+    
+    const validRoomIds = roomIds.map(id => parseInt(id));
+    const parsedResidentId = parseInt(residentId);
+    
+    // Validate all rooms exist and are available
+    const roomsToUpdate = [];
+    for (const roomId of validRoomIds) {
+      const room = this.rooms.find(r => r.Id === roomId);
+      if (!room) {
+        throw new Error(`Room with ID ${roomId} not found`);
+      }
+      if (room.status !== 'available') {
+        throw new Error(`Room ${room.roomNumber} is not available for assignment`);
+      }
+      if (room.currentOccupancy >= room.capacity) {
+        throw new Error(`Room ${room.roomNumber} is at full capacity`);
+      }
+      roomsToUpdate.push(room);
+    }
+
+    // Update all rooms
+    for (const room of roomsToUpdate) {
+      const index = this.rooms.findIndex(r => r.Id === room.Id);
+      this.rooms[index] = {
+        ...room,
+        currentOccupancy: room.currentOccupancy + 1,
+        status: room.currentOccupancy + 1 >= room.capacity ? 'occupied' : 'available',
+        beds: room.beds?.map(bed => 
+          !bed.isOccupied && !bed.residentId 
+            ? { ...bed, isOccupied: true, residentId: parsedResidentId }
+            : bed
+        ) || []
+      };
+    }
+
+    return roomsToUpdate.map(room => ({ ...this.rooms.find(r => r.Id === room.Id) }));
   }
 }
 

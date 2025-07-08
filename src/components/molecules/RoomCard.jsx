@@ -3,7 +3,7 @@ import ApperIcon from '@/components/ApperIcon';
 import Badge from '@/components/atoms/Badge';
 import { cn } from '@/utils/cn';
 
-const RoomCard = ({ room, onClick, className }) => {
+const RoomCard = ({ room, onClick, className, isSelectable, isSelected, onSelectionChange }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'available': return 'bg-green-100 border-green-200';
@@ -22,17 +22,41 @@ const RoomCard = ({ room, onClick, className }) => {
     }
   };
 
+const handleCardClick = (e) => {
+    if (e.target.type === 'checkbox') return;
+    onClick?.(room);
+  };
+
+  const canBeSelected = isSelectable && room.status === 'available';
+
   return (
     <motion.div
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      onClick={() => onClick?.(room)}
+      onClick={handleCardClick}
       className={cn(
-        'p-4 rounded-lg border cursor-pointer transition-all duration-200',
+        'p-4 rounded-lg border cursor-pointer transition-all duration-200 relative',
         getStatusColor(room.status),
+        isSelected && 'ring-2 ring-blue-500 ring-offset-2',
         className
       )}
     >
+      {isSelectable && (
+        <div className="absolute top-3 right-3">
+          <input
+            type="checkbox"
+            checked={isSelected || false}
+            onChange={(e) => onSelectionChange?.(room.Id, e.target.checked)}
+            disabled={!canBeSelected}
+            className={cn(
+              'w-4 h-4 rounded border-2 transition-colors',
+              canBeSelected 
+                ? 'text-blue-600 border-gray-300 focus:ring-blue-500' 
+                : 'opacity-50 cursor-not-allowed'
+            )}
+          />
+        </div>
+      )}
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center">
           <div className="w-8 h-8 bg-white rounded-lg flex items-center justify-center mr-3">
