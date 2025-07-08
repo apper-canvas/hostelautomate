@@ -1,0 +1,216 @@
+[
+  {
+    "Id": 1,
+    "roomNumber": "101",
+    "floor": 1,
+    "capacity": 2,
+    "currentOccupancy": 2,
+    "type": "Twin Room",
+    "status": "occupied",
+    "beds": [
+      {
+        "id": "bed-1-1",
+        "bedNumber": "A",
+        "isOccupied": true,
+        "residentId": "1",
+        "condition": "good"
+      },
+      {
+        "id": "bed-1-2",
+        "bedNumber": "B",
+        "isOccupied": true,
+        "residentId": "2",
+        "condition": "good"
+      }
+    ]
+  },
+  {
+    "Id": 2,
+    "roomNumber": "102",
+    "floor": 1,
+    "capacity": 4,
+    "currentOccupancy": 1,
+    "type": "Quad Room",
+    "status": "available",
+    "beds": [
+      {
+        "id": "bed-2-1",
+        "bedNumber": "A",
+        "isOccupied": true,
+        "residentId": "3",
+        "condition": "good"
+      },
+      {
+        "id": "bed-2-2",
+        "bedNumber": "B",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      },
+      {
+        "id": "bed-2-3",
+        "bedNumber": "C",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      },
+      {
+        "id": "bed-2-4",
+        "bedNumber": "D",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      }
+    ]
+  },
+  {
+    "Id": 3,
+    "roomNumber": "103",
+    "floor": 1,
+    "capacity": 2,
+    "currentOccupancy": 0,
+    "type": "Twin Room",
+    "status": "maintenance",
+    "beds": [
+      {
+        "id": "bed-3-1",
+        "bedNumber": "A",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "repair_needed"
+      },
+      {
+        "id": "bed-3-2",
+        "bedNumber": "B",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      }
+    ]
+  },
+  {
+    "Id": 4,
+    "roomNumber": "201",
+    "floor": 2,
+    "capacity": 1,
+    "currentOccupancy": 1,
+    "type": "Single Room",
+    "status": "occupied",
+    "beds": [
+      {
+        "id": "bed-4-1",
+        "bedNumber": "A",
+        "isOccupied": true,
+        "residentId": "4",
+        "condition": "good"
+      }
+    ]
+  },
+  {
+    "Id": 5,
+    "roomNumber": "202",
+    "floor": 2,
+    "capacity": 2,
+    "currentOccupancy": 0,
+    "type": "Twin Room",
+    "status": "available",
+    "beds": [
+      {
+        "id": "bed-5-1",
+        "bedNumber": "A",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      },
+      {
+        "id": "bed-5-2",
+        "bedNumber": "B",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      }
+    ]
+  },
+  {
+    "Id": 6,
+    "roomNumber": "203",
+    "floor": 2,
+    "capacity": 4,
+    "currentOccupancy": 3,
+    "type": "Quad Room",
+    "status": "occupied",
+    "beds": [
+      {
+        "id": "bed-6-1",
+        "bedNumber": "A",
+        "isOccupied": true,
+        "residentId": "5",
+        "condition": "good"
+      },
+      {
+        "id": "bed-6-2",
+        "bedNumber": "B",
+        "isOccupied": true,
+        "residentId": "6",
+        "condition": "good"
+      },
+      {
+        "id": "bed-6-3",
+        "bedNumber": "C",
+        "isOccupied": true,
+        "residentId": "7",
+        "condition": "good"
+      },
+      {
+        "id": "bed-6-4",
+        "bedNumber": "D",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      }
+    ]
+  },
+  {
+    "Id": 7,
+    "roomNumber": "204",
+    "floor": 2,
+    "capacity": 2,
+    "currentOccupancy": 1,
+    "type": "Twin Room",
+    "status": "available",
+    "beds": [
+      {
+        "id": "bed-7-1",
+        "bedNumber": "A",
+        "isOccupied": true,
+        "residentId": "8",
+        "condition": "good"
+      },
+      {
+        "id": "bed-7-2",
+        "bedNumber": "B",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      }
+    ]
+  },
+  {
+    "Id": 8,
+    "roomNumber": "205",
+    "floor": 2,
+    "capacity": 1,
+    "currentOccupancy": 0,
+    "type": "Single Room",
+    "status": "available",
+    "beds": [
+      {
+        "id": "bed-8-1",
+        "bedNumber": "A",
+        "isOccupied": false,
+        "residentId": null,
+        "condition": "good"
+      }
+    ]
+  }
+]
