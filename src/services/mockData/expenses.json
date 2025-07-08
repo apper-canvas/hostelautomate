@@ -1,0 +1,110 @@
+[
+  {
+    "Id": 1,
+    "description": "Monthly electricity bill",
+    "category": "utilities",
+    "vendor": "City Electric Company",
+    "amount": 287.50,
+    "date": "2024-01-15",
+    "notes": "Main building power consumption for January"
+  },
+  {
+    "Id": 2,
+    "description": "Water and sewage service",
+    "category": "utilities",
+    "vendor": "Municipal Water Authority",
+    "amount": 145.75,
+    "date": "2024-01-12",
+    "notes": "Quarterly water bill covering all dormitory units"
+  },
+  {
+    "Id": 3,
+    "description": "Internet service",
+    "category": "utilities",
+    "vendor": "FastNet Communications",
+    "amount": 89.99,
+    "date": "2024-01-08",
+    "notes": "High-speed internet for all resident rooms"
+  },
+  {
+    "Id": 4,
+    "description": "Cleaning supplies bulk order",
+    "category": "supplies",
+    "vendor": "CleanPro Supplies",
+    "amount": 156.30,
+    "date": "2024-01-20",
+    "notes": "Detergents, disinfectants, and paper products"
+  },
+  {
+    "Id": 5,
+    "description": "Toilet paper and paper towels",
+    "category": "supplies",
+    "vendor": "Office Depot",
+    "amount": 67.89,
+    "date": "2024-01-18",
+    "notes": "Monthly restroom supplies restocking"
+  },
+  {
+    "Id": 6,
+    "description": "Kitchen supplies",
+    "category": "supplies",
+    "vendor": "Restaurant Supply Co",
+    "amount": 234.50,
+    "date": "2024-01-25",
+    "notes": "Plates, cups, utensils for common kitchen area"
+  },
+  {
+    "Id": 7,
+    "description": "HVAC system maintenance",
+    "category": "maintenance",
+    "vendor": "CoolAir Services",
+    "amount": 425.00,
+    "date": "2024-01-10",
+    "notes": "Quarterly maintenance and filter replacement"
+  },
+  {
+    "Id": 8,
+    "description": "Plumbing repair - Room 205",
+    "category": "maintenance",
+    "vendor": "QuickFix Plumbing",
+    "amount": 175.50,
+    "date": "2024-01-22",
+    "notes": "Fixed leaky faucet and replaced sink drain"
+  },
+  {
+    "Id": 9,
+    "description": "Natural gas heating",
+    "category": "utilities",
+    "vendor": "Metro Gas Company",
+    "amount": 198.75,
+    "date": "2024-01-14",
+    "notes": "Heating costs for common areas and water heating"
+  },
+  {
+    "Id": 10,
+    "description": "Laundry room supplies",
+    "category": "supplies",
+    "vendor": "Laundry Solutions Inc",
+    "amount": 89.25,
+    "date": "2024-01-28",
+    "notes": "Detergent pods and fabric softener for coin laundry"
+  },
+  {
+    "Id": 11,
+    "description": "Security system monitoring",
+    "category": "other",
+    "vendor": "SecureWatch Systems",
+    "amount": 125.00,
+    "date": "2024-01-01",
+    "notes": "Monthly monitoring service for building security"
+  },
+  {
+    "Id": 12,
+    "description": "Light bulb replacement",
+    "category": "maintenance",
+    "vendor": "Bright Lighting Supply",
+    "amount": 43.20,
+    "date": "2024-01-30",
+    "notes": "LED bulbs for hallway and common area lighting"
+  }
+]

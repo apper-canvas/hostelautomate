@@ -7,7 +7,7 @@ import Residents from '@/components/pages/Residents';
 import Payments from '@/components/pages/Payments';
 import Maintenance from '@/components/pages/Maintenance';
 import Reports from '@/components/pages/Reports';
-
+import Expenses from '@/components/pages/Expenses';
 function App() {
   return (
     <div className="App">
@@ -17,7 +17,8 @@ function App() {
           <Route path="rooms" element={<Rooms />} />
           <Route path="residents" element={<Residents />} />
           <Route path="payments" element={<Payments />} />
-          <Route path="maintenance" element={<Maintenance />} />
+<Route path="maintenance" element={<Maintenance />} />
+          <Route path="expenses" element={<Expenses />} />
           <Route path="reports" element={<Reports />} />
         </Route>
       </Routes>

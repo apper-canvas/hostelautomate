@@ -4,12 +4,13 @@ import NavItem from '@/components/molecules/NavItem';
 import { cn } from '@/utils/cn';
 
 const Sidebar = ({ isOpen, onClose, className }) => {
-  const menuItems = [
+const menuItems = [
     { to: '/', icon: 'LayoutDashboard', label: 'Dashboard' },
     { to: '/rooms', icon: 'Home', label: 'Rooms' },
     { to: '/residents', icon: 'Users', label: 'Residents' },
     { to: '/payments', icon: 'CreditCard', label: 'Payments' },
     { to: '/maintenance', icon: 'Wrench', label: 'Maintenance' },
+    { to: '/expenses', icon: 'Receipt', label: 'Expenses' },
     { to: '/reports', icon: 'FileText', label: 'Reports' },
   ];
 
