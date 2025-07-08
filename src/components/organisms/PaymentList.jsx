@@ -38,11 +38,11 @@ const PaymentList = ({
       animate={{ opacity: 1, y: 0 }}
       className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ${className}`}
     >
-      {payments.map((payment, index) => {
+{payments.map((payment, index) => {
         const resident = residents.find(r => r.id === payment.residentId);
         return (
           <motion.div
-            key={payment.id}
+            key={payment?.id ? `payment-${payment.id}` : `payment-index-${index}`}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.1 }}
