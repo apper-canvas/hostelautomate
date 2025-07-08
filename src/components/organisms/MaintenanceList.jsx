@@ -37,9 +37,9 @@ const MaintenanceList = ({
       animate={{ opacity: 1, y: 0 }}
       className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ${className}`}
     >
-      {requests.map((request, index) => (
+{requests.map((request, index) => (
         <motion.div
-          key={request.id}
+          key={request.Id}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}

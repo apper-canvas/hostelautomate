@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import MaintenanceList from '@/components/organisms/MaintenanceList';
-import Button from '@/components/atoms/Button';
-import SearchInput from '@/components/atoms/SearchInput';
-import ApperIcon from '@/components/ApperIcon';
-import maintenanceService from '@/services/api/maintenanceService';
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import ApperIcon from "@/components/ApperIcon";
+import MaintenanceList from "@/components/organisms/MaintenanceList";
+import Button from "@/components/atoms/Button";
+import SearchInput from "@/components/atoms/SearchInput";
+import maintenanceService from "@/services/api/maintenanceService";
 
 const Maintenance = () => {
   const [requests, setRequests] = useState([]);
@@ -45,15 +45,15 @@ const Maintenance = () => {
   const applyFilters = (query, statusFilter) => {
     let filtered = [...requests];
 
-    if (statusFilter !== 'all') {
+if (statusFilter !== 'all') {
       filtered = filtered.filter(request => request.status === statusFilter);
     }
 
     if (query) {
       filtered = filtered.filter(request =>
-        request.description.toLowerCase().includes(query.toLowerCase()) ||
-        request.roomId.toString().includes(query) ||
-        request.priority.toLowerCase().includes(query.toLowerCase())
+        request.description?.toLowerCase().includes(query.toLowerCase()) ||
+        request.room_id?.toString().includes(query) ||
+        request.priority?.toLowerCase().includes(query.toLowerCase())
       );
     }
 
@@ -62,15 +62,15 @@ const Maintenance = () => {
 
   const handleStatusChange = async (request) => {
     const statusOptions = ['pending', 'in-progress', 'completed'];
-    const currentIndex = statusOptions.indexOf(request.status);
+const currentIndex = statusOptions.indexOf(request.status);
     const nextStatus = statusOptions[(currentIndex + 1) % statusOptions.length];
-
+    
     try {
-      const updatedRequest = await maintenanceService.update(request.id, {
+      const updatedRequest = await maintenanceService.update(request.Id, {
         status: nextStatus,
-        resolvedAt: nextStatus === 'completed' ? new Date().toISOString() : null
+        resolved_at: nextStatus === 'completed' ? new Date().toISOString() : null
       });
-      setRequests(prev => prev.map(r => r.id === request.id ? updatedRequest : r));
+      setRequests(prev => prev.map(r => r.Id === request.Id ? updatedRequest : r));
       applyFilters(searchQuery, filter);
       toast.success(`Request status updated to ${nextStatus}`);
     } catch (err) {
@@ -78,11 +78,11 @@ const Maintenance = () => {
     }
   };
 
-  const handleDelete = async (request) => {
+const handleDelete = async (request) => {
     if (window.confirm('Are you sure you want to delete this maintenance request?')) {
       try {
-        await maintenanceService.delete(request.id);
-        setRequests(prev => prev.filter(r => r.id !== request.id));
+        await maintenanceService.delete(request.Id);
+        setRequests(prev => prev.filter(r => r.Id !== request.Id));
         applyFilters(searchQuery, filter);
         toast.success('Maintenance request deleted successfully');
       } catch (err) {

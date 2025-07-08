@@ -1,144 +1,274 @@
-import mockData from '@/services/mockData/expenses.json';
-
-// In-memory storage for development
-let expenses = [...mockData];
-let nextId = Math.max(...expenses.map(e => e.Id)) + 1;
+const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const expenseService = {
   // Get all expenses
   getAll: async () => {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    return [...expenses];
+    await delay(300);
+    
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+      
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "description" } },
+          { field: { Name: "category" } },
+          { field: { Name: "vendor" } },
+          { field: { Name: "amount" } },
+          { field: { Name: "date" } },
+          { field: { Name: "notes" } }
+        ],
+        orderBy: [
+          {
+            fieldName: "date",
+            sorttype: "DESC"
+          }
+        ]
+      };
+      
+      const response = await apperClient.fetchRecords('expense', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        return [];
+      }
+      
+      return response.data || [];
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error fetching expenses:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      return [];
+    }
   },
 
   // Get expense by ID
   getById: async (id) => {
-    await new Promise(resolve => setTimeout(resolve, 200));
+    await delay(200);
     const parsedId = parseInt(id);
     if (isNaN(parsedId)) {
       throw new Error('Invalid expense ID');
     }
-    const expense = expenses.find(e => e.Id === parsedId);
-    return expense ? { ...expense } : null;
+    
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+      
+      const params = {
+        fields: [
+          { field: { Name: "Name" } },
+          { field: { Name: "description" } },
+          { field: { Name: "category" } },
+          { field: { Name: "vendor" } },
+          { field: { Name: "amount" } },
+          { field: { Name: "date" } },
+          { field: { Name: "notes" } }
+        ]
+      };
+      
+      const response = await apperClient.getRecordById('expense', parsedId, params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        return null;
+      }
+      
+      return response.data;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error(`Error fetching expense with ID ${parsedId}:`, error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      return null;
+    }
   },
 
   // Create new expense
   create: async (expenseData) => {
-    await new Promise(resolve => setTimeout(resolve, 400));
-    const newExpense = {
-      ...expenseData,
-      Id: nextId++,
-      date: new Date(expenseData.date).toISOString().split('T')[0]
-    };
-    expenses.unshift(newExpense);
-    return { ...newExpense };
+    await delay(400);
+    
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+      
+      const params = {
+        records: [
+          {
+            Name: expenseData.description,
+            description: expenseData.description,
+            category: expenseData.category,
+            vendor: expenseData.vendor,
+            amount: parseFloat(expenseData.amount),
+            date: expenseData.date,
+            notes: expenseData.notes || ""
+          }
+        ]
+      };
+      
+      const response = await apperClient.createRecord('expense', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      if (response.results) {
+        const successfulRecords = response.results.filter(result => result.success);
+        const failedRecords = response.results.filter(result => !result.success);
+        
+        if (failedRecords.length > 0) {
+          console.error(`Failed to create ${failedRecords.length} records:${JSON.stringify(failedRecords)}`);
+          
+          failedRecords.forEach(record => {
+            record.errors?.forEach(error => {
+              throw new Error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        return successfulRecords[0]?.data || null;
+      }
+      
+      return null;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error creating expense:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
+    }
   },
 
   // Update existing expense
   update: async (id, expenseData) => {
-    await new Promise(resolve => setTimeout(resolve, 400));
+    await delay(400);
     const parsedId = parseInt(id);
     if (isNaN(parsedId)) {
       throw new Error('Invalid expense ID');
     }
     
-    const index = expenses.findIndex(e => e.Id === parsedId);
-    if (index === -1) {
-      throw new Error('Expense not found');
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+      
+      const params = {
+        records: [
+          {
+            Id: parsedId,
+            Name: expenseData.description,
+            description: expenseData.description,
+            category: expenseData.category,
+            vendor: expenseData.vendor,
+            amount: parseFloat(expenseData.amount),
+            date: expenseData.date,
+            notes: expenseData.notes || ""
+          }
+        ]
+      };
+      
+      const response = await apperClient.updateRecord('expense', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      if (response.results) {
+        const successfulUpdates = response.results.filter(result => result.success);
+        const failedUpdates = response.results.filter(result => !result.success);
+        
+        if (failedUpdates.length > 0) {
+          console.error(`Failed to update ${failedUpdates.length} records:${JSON.stringify(failedUpdates)}`);
+          
+          failedUpdates.forEach(record => {
+            record.errors?.forEach(error => {
+              throw new Error(`${error.fieldLabel}: ${error.message}`);
+            });
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        return successfulUpdates[0]?.data || null;
+      }
+      
+      return null;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error updating expense:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
     }
-
-    const updatedExpense = {
-      ...expenses[index],
-      ...expenseData,
-      Id: parsedId,
-      date: new Date(expenseData.date).toISOString().split('T')[0]
-    };
-    
-    expenses[index] = updatedExpense;
-    return { ...updatedExpense };
   },
 
   // Delete expense
   delete: async (id) => {
-    await new Promise(resolve => setTimeout(resolve, 300));
+    await delay(300);
     const parsedId = parseInt(id);
     if (isNaN(parsedId)) {
       throw new Error('Invalid expense ID');
     }
     
-    const index = expenses.findIndex(e => e.Id === parsedId);
-    if (index === -1) {
-      throw new Error('Expense not found');
+    try {
+      const { ApperClient } = window.ApperSDK;
+      const apperClient = new ApperClient({
+        apperProjectId: import.meta.env.VITE_APPER_PROJECT_ID,
+        apperPublicKey: import.meta.env.VITE_APPER_PUBLIC_KEY
+      });
+      
+      const params = {
+        RecordIds: [parsedId]
+      };
+      
+      const response = await apperClient.deleteRecord('expense', params);
+      
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+      
+      if (response.results) {
+        const failedDeletions = response.results.filter(result => !result.success);
+        
+        if (failedDeletions.length > 0) {
+          console.error(`Failed to delete ${failedDeletions.length} records:${JSON.stringify(failedDeletions)}`);
+          
+          failedDeletions.forEach(record => {
+            if (record.message) throw new Error(record.message);
+          });
+        }
+        
+        return response.results.some(result => result.success);
+      }
+      
+      return true;
+    } catch (error) {
+      if (error?.response?.data?.message) {
+        console.error("Error deleting expense:", error?.response?.data?.message);
+      } else {
+        console.error(error.message);
+      }
+      throw error;
     }
-    
-    expenses.splice(index, 1);
-    return true;
-  },
-
-  // Search expenses
-  search: async (query) => {
-    await new Promise(resolve => setTimeout(resolve, 250));
-    const lowerQuery = query.toLowerCase();
-    const filtered = expenses.filter(expense =>
-      expense.description.toLowerCase().includes(lowerQuery) ||
-      expense.vendor.toLowerCase().includes(lowerQuery) ||
-      expense.category.toLowerCase().includes(lowerQuery)
-    );
-    return [...filtered];
-  },
-
-  // Filter by category
-  getByCategory: async (category) => {
-    await new Promise(resolve => setTimeout(resolve, 250));
-    const filtered = expenses.filter(expense => expense.category === category);
-    return [...filtered];
-  },
-
-  // Get expenses by date range
-  getByDateRange: async (startDate, endDate) => {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    
-    const filtered = expenses.filter(expense => {
-      const expenseDate = new Date(expense.date);
-      return expenseDate >= start && expenseDate <= end;
-    });
-    
-    return [...filtered];
-  },
-
-  // Get category summary
-  getCategorySummary: async () => {
-    await new Promise(resolve => setTimeout(resolve, 250));
-    const summary = expenses.reduce((acc, expense) => {
-      acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
-      return acc;
-    }, {});
-    
-    return summary;
-  },
-
-  // Get monthly summary
-  getMonthlySummary: async (year, month) => {
-    await new Promise(resolve => setTimeout(resolve, 300));
-    const filtered = expenses.filter(expense => {
-      const expenseDate = new Date(expense.date);
-      return expenseDate.getFullYear() === year && expenseDate.getMonth() === month - 1;
-    });
-    
-    const total = filtered.reduce((sum, expense) => sum + expense.amount, 0);
-    const categoryBreakdown = filtered.reduce((acc, expense) => {
-      acc[expense.category] = (acc[expense.category] || 0) + expense.amount;
-      return acc;
-    }, {});
-    
-    return {
-      total,
-      count: filtered.length,
-      categoryBreakdown,
-      expenses: [...filtered]
-    };
   }
 };
 

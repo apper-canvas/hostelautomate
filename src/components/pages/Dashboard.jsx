@@ -1,15 +1,18 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
-import StatCard from '@/components/molecules/StatCard';
-import Card from '@/components/atoms/Card';
-import Loading from '@/components/ui/Loading';
-import Error from '@/components/ui/Error';
-import ApperIcon from '@/components/ApperIcon';
-import roomService from '@/services/api/roomService';
-import residentService from '@/services/api/residentService';
-import paymentService from '@/services/api/paymentService';
-import maintenanceService from '@/services/api/maintenanceService';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
+import ApperIcon from "@/components/ApperIcon";
+import Header from "@/components/organisms/Header";
+import Card from "@/components/atoms/Card";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
+import Rooms from "@/components/pages/Rooms";
+import Maintenance from "@/components/pages/Maintenance";
+import StatCard from "@/components/molecules/StatCard";
+import roomService from "@/services/api/roomService";
+import maintenanceService from "@/services/api/maintenanceService";
+import residentService from "@/services/api/residentService";
+import paymentService from "@/services/api/paymentService";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -42,7 +45,7 @@ const Dashboard = () => {
       const activeMaintenanceRequests = maintenance.filter(req => req.status !== 'completed').length;
       const occupancyRate = rooms.length > 0 ? Math.round((occupiedRooms / rooms.length) * 100) : 0;
 
-      setStats({
+setStats({
         totalRooms: rooms.length,
         occupiedRooms,
         totalResidents: residents.length,
@@ -51,16 +54,19 @@ const Dashboard = () => {
         occupancyRate,
       });
 
-      // Generate recent activities
+      // Generate recent activities using database field names
       const activities = [
-        { id: 1, type: 'payment', message: 'Payment received from John Doe', time: '2 minutes ago' },
-        { id: 2, type: 'resident', message: 'New resident checked in to Room 101', time: '1 hour ago' },
-        { id: 3, type: 'maintenance', message: 'Maintenance request completed for Room 205', time: '3 hours ago' },
-        { id: 4, type: 'room', message: 'Room 303 marked as available', time: '5 hours ago' },
+        { id: 1, type: 'payment', message: 'Payment received from resident', time: '2 minutes ago' },
+        { id: 2, type: 'resident', message: 'New resident checked in', time: '1 hour ago' },
+        { id: 3, type: 'maintenance', message: 'Maintenance request completed', time: '3 hours ago' },
+        { id: 4, type: 'room', message: 'Room marked as available', time: '5 hours ago' },
       ];
+      
       setRecentActivities(activities);
-    } catch (err) {
-      setError(err.message);
+      
+    } catch (error) {
+      console.error('Failed to load dashboard data:', error);
+      setError(error.message || 'Failed to load dashboard data');
     } finally {
       setLoading(false);
     }

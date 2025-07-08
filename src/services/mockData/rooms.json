@@ -1,10 +1,10 @@
 [
   {
     "Id": 1,
-    "roomNumber": "101",
+    "room_number": "101",
     "floor": 1,
     "capacity": 2,
-    "currentOccupancy": 2,
+    "current_occupancy": 2,
     "type": "Twin Room",
     "status": "occupied",
     "beds": [
@@ -24,12 +24,12 @@
       }
     ]
   },
-  {
+{
     "Id": 2,
-    "roomNumber": "102",
+    "room_number": "102",
     "floor": 1,
     "capacity": 4,
-    "currentOccupancy": 1,
+    "current_occupancy": 1,
     "type": "Quad Room",
     "status": "available",
     "beds": [
@@ -64,11 +64,11 @@
     ]
   },
   {
-    "Id": 3,
-    "roomNumber": "103",
+"Id": 3,
+    "room_number": "103",
     "floor": 1,
     "capacity": 2,
-    "currentOccupancy": 0,
+    "current_occupancy": 0,
     "type": "Twin Room",
     "status": "maintenance",
     "beds": [
@@ -90,10 +90,10 @@
   },
   {
     "Id": 4,
-    "roomNumber": "201",
+    "room_number": "201",
     "floor": 2,
     "capacity": 1,
-    "currentOccupancy": 1,
+    "current_occupancy": 1,
     "type": "Single Room",
     "status": "occupied",
     "beds": [
@@ -108,10 +108,10 @@
   },
   {
     "Id": 5,
-    "roomNumber": "202",
+    "room_number": "202",
     "floor": 2,
     "capacity": 2,
-    "currentOccupancy": 0,
+    "current_occupancy": 0,
     "type": "Twin Room",
     "status": "available",
     "beds": [
@@ -133,10 +133,10 @@
   },
   {
     "Id": 6,
-    "roomNumber": "203",
+    "room_number": "203",
     "floor": 2,
     "capacity": 4,
-    "currentOccupancy": 3,
+    "current_occupancy": 3,
     "type": "Quad Room",
     "status": "occupied",
     "beds": [
@@ -172,10 +172,10 @@
   },
   {
     "Id": 7,
-    "roomNumber": "204",
+    "room_number": "204",
     "floor": 2,
     "capacity": 2,
-    "currentOccupancy": 1,
+    "current_occupancy": 1,
     "type": "Twin Room",
     "status": "available",
     "beds": [
@@ -197,10 +197,10 @@
   },
   {
     "Id": 8,
-    "roomNumber": "205",
+    "room_number": "205",
     "floor": 2,
     "capacity": 1,
-    "currentOccupancy": 0,
+    "current_occupancy": 0,
     "type": "Single Room",
     "status": "available",
     "beds": [

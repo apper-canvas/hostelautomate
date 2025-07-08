@@ -1,82 +1,82 @@
 [
   {
     "Id": 1,
-    "roomId": "103",
-    "residentId": "3",
+    "room_id": "103",
+    "resident_id": "3",
     "description": "Air conditioning not working properly, room getting too hot",
     "priority": "high",
     "status": "pending",
-    "createdAt": "2024-03-10T10:30:00Z",
-    "resolvedAt": null
+    "created_at": "2024-03-10T10:30:00Z",
+    "resolved_at": null
   },
   {
     "Id": 2,
-    "roomId": "101",
-    "residentId": "1",
+    "room_id": "101",
+    "resident_id": "1",
     "description": "Bathroom tap leaking, needs repair",
     "priority": "medium",
     "status": "in-progress",
-    "createdAt": "2024-03-08T14:15:00Z",
-    "resolvedAt": null
+    "created_at": "2024-03-08T14:15:00Z",
+    "resolved_at": null
   },
   {
     "Id": 3,
-    "roomId": "203",
-    "residentId": "5",
+    "room_id": "203",
+    "resident_id": "5",
     "description": "Light bulb in main room needs replacement",
     "priority": "low",
     "status": "completed",
-    "createdAt": "2024-03-05T09:00:00Z",
-    "resolvedAt": "2024-03-06T16:30:00Z"
+    "created_at": "2024-03-05T09:00:00Z",
+    "resolved_at": "2024-03-06T16:30:00Z"
   },
   {
     "Id": 4,
-    "roomId": "201",
-    "residentId": "4",
+    "room_id": "201",
+    "resident_id": "4",
     "description": "Window lock is broken, security concern",
     "priority": "high",
     "status": "pending",
-    "createdAt": "2024-03-12T11:45:00Z",
-    "resolvedAt": null
+    "created_at": "2024-03-12T11:45:00Z",
+    "resolved_at": null
   },
   {
     "Id": 5,
-    "roomId": "102",
-    "residentId": "3",
+    "room_id": "102",
+    "resident_id": "3",
     "description": "Wifi connection unstable in room",
     "priority": "medium",
     "status": "in-progress",
-    "createdAt": "2024-03-11T13:20:00Z",
-    "resolvedAt": null
+    "created_at": "2024-03-11T13:20:00Z",
+    "resolved_at": null
   },
   {
     "Id": 6,
-    "roomId": "204",
-    "residentId": "8",
+    "room_id": "204",
+    "resident_id": "8",
     "description": "Desk drawer handle is loose",
     "priority": "low",
     "status": "pending",
-    "createdAt": "2024-03-13T08:30:00Z",
-    "resolvedAt": null
+    "created_at": "2024-03-13T08:30:00Z",
+    "resolved_at": null
   },
   {
     "Id": 7,
-    "roomId": "203",
-    "residentId": "6",
+    "room_id": "203",
+    "resident_id": "6",
     "description": "Shower head water pressure is very low",
     "priority": "medium",
     "status": "completed",
-    "createdAt": "2024-03-07T15:45:00Z",
-    "resolvedAt": "2024-03-09T10:15:00Z"
+    "created_at": "2024-03-07T15:45:00Z",
+    "resolved_at": "2024-03-09T10:15:00Z"
   },
   {
     "Id": 8,
-    "roomId": "102",
-    "residentId": "3",
+    "room_id": "102",
+    "resident_id": "3",
     "description": "Heating system making loud noises",
     "priority": "high",
     "status": "in-progress",
-    "createdAt": "2024-03-09T12:00:00Z",
-    "resolvedAt": null
+    "created_at": "2024-03-09T12:00:00Z",
+    "resolved_at": null
   }
 ]

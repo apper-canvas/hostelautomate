@@ -1,15 +1,24 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { motion } from 'framer-motion';
+import { useSelector } from 'react-redux';
 import ApperIcon from '@/components/ApperIcon';
 import SearchInput from '@/components/atoms/SearchInput';
 import Button from '@/components/atoms/Button';
 import NotificationCenter from '@/components/organisms/NotificationCenter';
+import { AuthContext } from '../../App';
+
 const Header = ({ title, onSearch, onMenuToggle, showSearch = true, actions }) => {
-  const [searchQuery, setSearchQuery] = useState('');
+const [searchQuery, setSearchQuery] = useState('');
+  const { logout } = useContext(AuthContext);
+  const { user } = useSelector((state) => state.user);
 
   const handleSearch = (query) => {
     setSearchQuery(query);
     onSearch?.(query);
+  };
+
+  const handleLogout = async () => {
+    await logout();
   };
 
   return (
@@ -52,6 +61,9 @@ const Header = ({ title, onSearch, onMenuToggle, showSearch = true, actions }) =
             <NotificationCenter />
             <Button variant="ghost" size="sm">
               <ApperIcon name="Settings" className="w-5 h-5" />
+            </Button>
+            <Button variant="ghost" size="sm" onClick={handleLogout}>
+              <ApperIcon name="LogOut" className="w-5 h-5" />
             </Button>
           </div>
         </div>

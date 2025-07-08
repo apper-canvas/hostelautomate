@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import PaymentList from '@/components/organisms/PaymentList';
-import Button from '@/components/atoms/Button';
-import SearchInput from '@/components/atoms/SearchInput';
-import ApperIcon from '@/components/ApperIcon';
-import paymentService from '@/services/api/paymentService';
-import residentService from '@/services/api/residentService';
+import React, { useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import ApperIcon from "@/components/ApperIcon";
+import PaymentList from "@/components/organisms/PaymentList";
+import Button from "@/components/atoms/Button";
+import SearchInput from "@/components/atoms/SearchInput";
+import residentService from "@/services/api/residentService";
+import paymentService from "@/services/api/paymentService";
 
 const Payments = () => {
   const [payments, setPayments] = useState([]);
@@ -51,23 +51,23 @@ const Payments = () => {
   const applyFilters = (query, statusFilter) => {
     let filtered = [...payments];
 
-    if (statusFilter !== 'all') {
+if (statusFilter !== 'all') {
       if (statusFilter === 'overdue') {
         filtered = filtered.filter(payment => 
-          payment.status === 'pending' && new Date(payment.dueDate) < new Date()
+          payment.status === 'pending' && new Date(payment.due_date) < new Date()
         );
       } else {
         filtered = filtered.filter(payment => payment.status === statusFilter);
       }
     }
 
-    if (query) {
+if (query) {
       filtered = filtered.filter(payment => {
-        const resident = residents.find(r => r.id === payment.residentId);
+        const resident = residents.find(r => r.Id === payment.resident_id);
         return (
-          resident?.name.toLowerCase().includes(query.toLowerCase()) ||
-          payment.period.toLowerCase().includes(query.toLowerCase()) ||
-          payment.amount.toString().includes(query)
+          resident?.Name?.toLowerCase().includes(query.toLowerCase()) ||
+          payment.period?.toLowerCase().includes(query.toLowerCase()) ||
+          payment.amount?.toString().includes(query)
         );
       });
     }
@@ -75,26 +75,25 @@ const Payments = () => {
     setFilteredPayments(filtered);
   };
 
-  const handleMarkPaid = async (payment) => {
+const handleMarkPaid = async (payment) => {
     try {
-      const updatedPayment = await paymentService.update(payment.id, {
+      const updatedPayment = await paymentService.update(payment.Id, {
         status: 'paid',
-        paidDate: new Date().toISOString(),
+        paid_date: new Date().toISOString().split('T')[0],
         method: 'cash'
       });
-      setPayments(prev => prev.map(p => p.id === payment.id ? updatedPayment : p));
+      setPayments(prev => prev.map(p => p.Id === payment.Id ? updatedPayment : p));
       applyFilters(searchQuery, filter);
       toast.success('Payment marked as paid successfully');
     } catch (err) {
       toast.error('Failed to update payment status');
     }
   };
-
-  const handleDelete = async (payment) => {
+const handleDelete = async (payment) => {
     if (window.confirm('Are you sure you want to delete this payment record?')) {
       try {
-        await paymentService.delete(payment.id);
-        setPayments(prev => prev.filter(p => p.id !== payment.id));
+        await paymentService.delete(payment.Id);
+        setPayments(prev => prev.filter(p => p.Id !== payment.Id));
         applyFilters(searchQuery, filter);
         toast.success('Payment record deleted successfully');
       } catch (err) {
@@ -107,7 +106,7 @@ const Payments = () => {
     all: payments.length,
     pending: payments.filter(p => p.status === 'pending').length,
     paid: payments.filter(p => p.status === 'paid').length,
-    overdue: payments.filter(p => p.status === 'pending' && new Date(p.dueDate) < new Date()).length,
+    overdue: payments.filter(p => p.status === 'pending' && new Date(p.due_date) < new Date()).length,
   };
 
   const totalAmount = payments.reduce((sum, payment) => sum + payment.amount, 0);

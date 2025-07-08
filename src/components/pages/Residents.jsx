@@ -36,11 +36,11 @@ const Residents = () => {
     if (!query) {
       setFilteredResidents(residents);
     } else {
-      const filtered = residents.filter(resident =>
-        resident.name.toLowerCase().includes(query.toLowerCase()) ||
-        resident.email.toLowerCase().includes(query.toLowerCase()) ||
-        resident.phone.includes(query) ||
-        resident.roomId.toString().includes(query)
+const filtered = residents.filter(resident =>
+        resident.Name?.toLowerCase().includes(query.toLowerCase()) ||
+        resident.email?.toLowerCase().includes(query.toLowerCase()) ||
+        resident.phone?.includes(query) ||
+        (resident.room_id && resident.room_id.toString().includes(query))
       );
       setFilteredResidents(filtered);
     }
@@ -50,13 +50,13 @@ const Residents = () => {
     toast.info(`Edit functionality for ${resident.name} would be implemented here`);
   };
 
-  const handleDelete = async (resident) => {
-    if (window.confirm(`Are you sure you want to remove ${resident.name}?`)) {
+const handleDelete = async (resident) => {
+    if (window.confirm(`Are you sure you want to remove ${resident.Name}?`)) {
       try {
-        await residentService.delete(resident.id);
-        setResidents(prev => prev.filter(r => r.id !== resident.id));
-        setFilteredResidents(prev => prev.filter(r => r.id !== resident.id));
-        toast.success(`${resident.name} has been removed successfully`);
+        await residentService.delete(resident.Id);
+        setResidents(prev => prev.filter(r => r.Id !== resident.Id));
+        setFilteredResidents(prev => prev.filter(r => r.Id !== resident.Id));
+        toast.success(`${resident.Name} has been removed successfully`);
       } catch (err) {
         toast.error('Failed to remove resident');
       }
@@ -118,8 +118,8 @@ const Residents = () => {
             </div>
             <div>
               <p className="text-sm text-gray-600">Payments Up to Date</p>
-              <p className="text-lg font-semibold text-gray-900">
-                {residents.filter(r => r.paymentStatus === 'paid').length}
+<p className="text-lg font-semibold text-gray-900">
+                {residents.filter(r => r.payment_status === 'paid').length}
               </p>
             </div>
           </div>
@@ -131,8 +131,8 @@ const Residents = () => {
             </div>
             <div>
               <p className="text-sm text-gray-600">Pending Payments</p>
-              <p className="text-lg font-semibold text-gray-900">
-                {residents.filter(r => r.paymentStatus === 'pending').length}
+<p className="text-lg font-semibold text-gray-900">
+                {residents.filter(r => r.payment_status === 'pending').length}
               </p>
             </div>
           </div>
@@ -144,8 +144,8 @@ const Residents = () => {
             </div>
             <div>
               <p className="text-sm text-gray-600">Overdue Payments</p>
-              <p className="text-lg font-semibold text-gray-900">
-                {residents.filter(r => r.paymentStatus === 'overdue').length}
+<p className="text-lg font-semibold text-gray-900">
+                {residents.filter(r => r.payment_status === 'overdue').length}
               </p>
             </div>
           </div>

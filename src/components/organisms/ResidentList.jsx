@@ -39,7 +39,7 @@ const ResidentList = ({
     >
 {residents.map((resident, index) => (
         <motion.div
-          key={resident?.id ? `resident-${resident.id}` : `resident-index-${index}`}
+          key={resident?.Id ? `resident-${resident.Id}` : `resident-index-${index}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}

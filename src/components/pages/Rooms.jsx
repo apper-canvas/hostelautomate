@@ -1,12 +1,14 @@
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { toast } from 'react-toastify';
-import RoomGrid from '@/components/organisms/RoomGrid';
-import Button from '@/components/atoms/Button';
-import Badge from '@/components/atoms/Badge';
-import Card from '@/components/atoms/Card';
-import ApperIcon from '@/components/ApperIcon';
-import roomService from '@/services/api/roomService';
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+import { toast } from "react-toastify";
+import ApperIcon from "@/components/ApperIcon";
+import RoomGrid from "@/components/organisms/RoomGrid";
+import Header from "@/components/organisms/Header";
+import Badge from "@/components/atoms/Badge";
+import Button from "@/components/atoms/Button";
+import Card from "@/components/atoms/Card";
+import Maintenance from "@/components/pages/Maintenance";
+import roomService from "@/services/api/roomService";
 
 const Rooms = () => {
   const [rooms, setRooms] = useState([]);
@@ -57,20 +59,20 @@ const loadRooms = async () => {
     setSelectedRoom(room);
   };
 
-  const handleStatusChange = async (roomId, newStatus) => {
+const handleStatusChange = async (roomId, newStatus) => {
     try {
       const updatedRoom = await roomService.update(roomId, { status: newStatus });
       setRooms(prevRooms => 
         prevRooms.map(room => 
-          room.id === roomId ? updatedRoom : room
+          room.Id === roomId ? updatedRoom : room
         )
       );
-      toast.success(`Room ${updatedRoom.roomNumber} status updated to ${newStatus}`);
+      toast.success(`Room ${updatedRoom.room_number} status updated to ${newStatus}`);
       setSelectedRoom(updatedRoom);
-    } catch (err) {
+} catch (err) {
       toast.error('Failed to update room status');
     }
-};
+  };
 
   const scheduleInspection = async (roomId, date) => {
     try {
@@ -217,9 +219,9 @@ const statusCounts = {
                   animate={{ opacity: 1, y: 0 }}
                   className="space-y-4"
                 >
-                  <div className="flex items-center justify-between">
+<div className="flex items-center justify-between">
                     <h3 className="text-lg font-semibold text-gray-900">
-                      {selectedRoom.roomNumber}
+                      {selectedRoom.room_number}
                     </h3>
                     <Badge variant={selectedRoom.status}>
                       {selectedRoom.status}
@@ -231,9 +233,9 @@ const statusCounts = {
                       <ApperIcon name="Building" className="w-4 h-4 mr-2" />
                       <span>Floor {selectedRoom.floor}</span>
                     </div>
-                    <div className="flex items-center text-sm text-gray-600">
+<div className="flex items-center text-sm text-gray-600">
                       <ApperIcon name="Users" className="w-4 h-4 mr-2" />
-                      <span>{selectedRoom.currentOccupancy}/{selectedRoom.capacity} occupied</span>
+                      <span>{selectedRoom.current_occupancy}/{selectedRoom.capacity} occupied</span>
                     </div>
                     <div className="flex items-center text-sm text-gray-600">
                       <ApperIcon name="Bed" className="w-4 h-4 mr-2" />
@@ -312,33 +314,33 @@ const statusCounts = {
                   <div className="pt-4 border-t border-gray-200">
                     <h4 className="font-medium text-gray-900 mb-3">Quick Actions</h4>
                     <div className="space-y-2">
-                      {selectedRoom.status !== 'available' && (
+{selectedRoom.status !== 'available' && (
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => handleStatusChange(selectedRoom.id, 'available')}
+                          onClick={() => handleStatusChange(selectedRoom.Id, 'available')}
                           className="w-full"
                         >
                           <ApperIcon name="Check" className="w-4 h-4 mr-2" />
                           Mark Available
                         </Button>
                       )}
-                      {selectedRoom.status !== 'occupied' && (
+{selectedRoom.status !== 'occupied' && (
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => handleStatusChange(selectedRoom.id, 'occupied')}
+                          onClick={() => handleStatusChange(selectedRoom.Id, 'occupied')}
                           className="w-full"
                         >
                           <ApperIcon name="User" className="w-4 h-4 mr-2" />
                           Mark Occupied
                         </Button>
                       )}
-                      {selectedRoom.status !== 'maintenance' && (
+{selectedRoom.status !== 'maintenance' && (
                         <Button
                           variant="outline"
                           size="sm"
-                          onClick={() => handleStatusChange(selectedRoom.id, 'maintenance')}
+                          onClick={() => handleStatusChange(selectedRoom.Id, 'maintenance')}
                           className="w-full"
                         >
                           <ApperIcon name="Wrench" className="w-4 h-4 mr-2" />
@@ -377,18 +379,18 @@ const statusCounts = {
               </button>
             </div>
             <div className="space-y-4">
-              {selectedRoom && (
+{selectedRoom && (
                 <p className="text-sm text-gray-600">
-                  Room: {selectedRoom.roomNumber}
+                  Room: {selectedRoom.room_number}
                 </p>
               )}
               <input
                 type="date"
                 className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent"
                 min={new Date().toISOString().split('T')[0]}
-                onChange={(e) => {
+onChange={(e) => {
                   if (e.target.value && selectedRoom) {
-                    scheduleInspection(selectedRoom.id, e.target.value);
+                    scheduleInspection(selectedRoom.Id, e.target.value);
                   }
                 }}
               />
