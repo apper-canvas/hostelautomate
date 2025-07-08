@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import ApperIcon from '@/components/ApperIcon';
 import SearchInput from '@/components/atoms/SearchInput';
 import Button from '@/components/atoms/Button';
-
+import NotificationCenter from '@/components/organisms/NotificationCenter';
 const Header = ({ title, onSearch, onMenuToggle, showSearch = true, actions }) => {
   const [searchQuery, setSearchQuery] = useState('');
 
@@ -48,10 +48,8 @@ const Header = ({ title, onSearch, onMenuToggle, showSearch = true, actions }) =
             </div>
           )}
 
-          <div className="flex items-center space-x-2">
-            <Button variant="ghost" size="sm">
-              <ApperIcon name="Bell" className="w-5 h-5" />
-            </Button>
+<div className="flex items-center space-x-2">
+            <NotificationCenter />
             <Button variant="ghost" size="sm">
               <ApperIcon name="Settings" className="w-5 h-5" />
             </Button>
