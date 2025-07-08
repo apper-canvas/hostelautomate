@@ -37,9 +37,9 @@ const ResidentList = ({
       animate={{ opacity: 1, y: 0 }}
       className={`grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 ${className}`}
     >
-      {residents.map((resident, index) => (
+{residents.map((resident, index) => (
         <motion.div
-          key={resident.id}
+          key={resident?.id ? `resident-${resident.id}` : `resident-index-${index}`}
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: index * 0.1 }}
